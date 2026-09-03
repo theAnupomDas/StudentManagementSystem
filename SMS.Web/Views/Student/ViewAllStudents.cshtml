@@ -1,0 +1,32 @@
+﻿@model List<SMS.Models.Entities.StudentEntity>
+@{
+
+}
+<h1>List of all the students</h1>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Student ID</th>
+            <th>Date of Birth</th>
+            <th>Email Address</th>
+            <th>Contact Number</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var student in Model)
+        {
+            <tr>
+                <td>@student.Name</td>
+                <td>@student.EmailAddress</td>
+                <td>@student.StudentId</td>
+                <td>@student.DateOfBirth.ToShortDateString()</td>
+                <td>@student.EmailAddress</td>
+                <td>@student.ContactNumber</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+

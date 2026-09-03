@@ -18,13 +18,9 @@ namespace SMS.Models.Entities
         [Required]
         public string Name { get; set; }
         [Required]
-        public string Email { get; set; }
-        [Required]
 
         public string StudentId { get; set; }
-        [Required]
-        public string FirstName { get; set; }
-        public string? LastName { get; set; }
+     
         public DateOnly DateOfBirth { get; set; }
         [Required]
         [EmailAddress]
