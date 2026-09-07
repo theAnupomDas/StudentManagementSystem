@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using SMS.DataAccess; 
+using SMS.DataAccess;
+using SMS.Models.Entities;
 
 namespace SMS.Web.Controllers
 {
@@ -23,5 +24,23 @@ namespace SMS.Web.Controllers
             var students = await _dbContext.Students.ToListAsync();
             return View(students);
         }
+        public async Task<IActionResult> Create()
+        {
+            return View();
+        }
+        [HttpPost]
+        public async Task<IActionResult> Create(StudentEntity student)
+        {
+           
+            if(ModelState.IsValid)
+            {
+                await _dbContext.Students.AddAsync(student);
+                await _dbContext.SaveChangesAsync();
+                return RedirectToAction("ViewAllStudents");
+
+            }
+            return View();
+        }
     }
+
 }
