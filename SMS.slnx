@@ -3,8 +3,6 @@
     <BuildDependency Project="SMS.Models/SMS.Models.csproj" />
   </Project>
   <Project Path="SMS.Models/SMS.Models.csproj" Id="ab255e24-83b5-4c3c-a2a7-e802417afb10" />
-  <Project Path="SMS.Services/SMS.Services.csproj" Id="d64acc6b-37cc-43b8-b9c6-702bbbfe2191" />
-  <Project Path="SMS.Utilities/SMS.Utilities.csproj" Id="78f50ec6-c7ef-4e5a-b416-a5db055a7fb5" />
   <Project Path="SMS.Web/SMS.Web.csproj">
     <BuildDependency Project="SMS.DataAccess/SMS.DataAccess.csproj" />
     <BuildDependency Project="SMS.Models/SMS.Models.csproj" />

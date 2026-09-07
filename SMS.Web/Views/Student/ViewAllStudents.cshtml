@@ -24,6 +24,9 @@
                 <td>@student.DateOfBirth.ToShortDateString()</td>
                 <td>@student.EmailAddress</td>
                 <td>@student.ContactNumber</td>
+                <td>
+                    <a asp-action="Update" asp-route-id="@student.Id" class="btn btn-primary">Update</a>
+                </td>
             </tr>
         }
     </tbody>

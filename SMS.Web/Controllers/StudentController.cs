@@ -41,6 +41,28 @@ namespace SMS.Web.Controllers
             }
             return View();
         }
+        public async Task<IActionResult> Update(int id)
+        {
+            var student = await _dbContext.Students.FindAsync(id);
+            if (student == null)
+            {
+                return NotFound();
+            }
+            return View(student);
+        }
+        [HttpPost]
+        public async Task<IActionResult> Update(StudentEntity student)
+        {
+            student.ModifiedBy = "random";
+            student.ModifiedAt = DateTime.Now;
+            if (ModelState.IsValid)
+            {
+                _dbContext.Students.Update(student);
+                await _dbContext.SaveChangesAsync();
+                return RedirectToAction("ViewAllStudents");
+            }
+            return View(student);
+        }
     }
 
 }
