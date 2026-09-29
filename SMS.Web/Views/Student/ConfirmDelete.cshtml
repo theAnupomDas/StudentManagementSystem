@@ -1,0 +1,12 @@
+﻿@model SMS.Models.Entities.StudentEntity
+
+<h2>Student Details</h2>
+<p>Name: @Model.Name</p>
+<p>Email: @Model.EmailAddress</p>
+<p>Student ID: @Model.StudentId</p>
+<p>Date of Birth: @Model.DateOfBirth.ToShortDateString()</p>
+<p>Contact Number: @Model.ContactNumber</p>
+
+<h2>Are you sure you want to delete this student?</h2>
+<a asp-action="Delete" asp-route-id ="@Model.Id" class="btn btn-danger">Delete</a>
+<a asp-action="ViewAllStudents" class="btn btn-secondary">Cancel</a>

@@ -63,6 +63,26 @@ namespace SMS.Web.Controllers
             }
             return View(student);
         }
+        public async Task<IActionResult> ConfirmDelete (int id)
+        {
+            var student = await _dbContext.Students.FindAsync(id);
+            if (student == null)
+            {
+                return NotFound();
+            }
+            return View(student);
+        }
+        public async Task<IActionResult> Delete (int id)
+        {
+            var student = await _dbContext.Students.FindAsync(id);
+            if (student == null)
+            {
+                return NotFound();
+            }
+            _dbContext.Students.Remove(student);
+            await _dbContext.SaveChangesAsync();
+            return RedirectToAction("ViewAllStudents");
+        }
     }
 
 }
