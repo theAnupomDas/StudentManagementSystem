@@ -3,15 +3,17 @@ using Microsoft.EntityFrameworkCore;
 using SMS.DataAccess;
 using SMS.Models.Entities;
 
+using SMS.Service.Contracts;
+
 namespace SMS.Web.Controllers
 {
     public class StudentController : Controller
     {
-        private readonly ApplicationDbContext _dbContext;
+        private readonly IStudentService _studentService;
 
-        public StudentController(ApplicationDbContext dbContext)
+        public StudentController(IStudentService studentService)
         {
-            _dbContext = dbContext;
+            _studentService = studentService;
         }
 
         public IActionResult Index()
@@ -21,7 +23,7 @@ namespace SMS.Web.Controllers
 
         public async Task<IActionResult> ViewAllStudents()
         {
-            var students = await _dbContext.Students.ToListAsync();
+            var students =await _studentService.GetAllStudentsAsync();
             return View(students);
         }
         public async Task<IActionResult> Create()
@@ -34,16 +36,17 @@ namespace SMS.Web.Controllers
            
             if(ModelState.IsValid)
             {
-                await _dbContext.Students.AddAsync(student);
-                await _dbContext.SaveChangesAsync();
-                return RedirectToAction("ViewAllStudents");
-
+                var isCreated = await _studentService.CreateStudentAsync(student);
+                if (isCreated)
+                {
+                    return RedirectToAction("ViewAllStudents");
+                }
             }
             return View();
         }
         public async Task<IActionResult> Update(int id)
         {
-            var student = await _dbContext.Students.FindAsync(id);
+            var student = await _studentService.GetStudentByIdAsync(id);
             if (student == null)
             {
                 return NotFound();
@@ -53,19 +56,19 @@ namespace SMS.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Update(StudentEntity student)
         {
-            student.ModifiedBy = "random";
-            student.ModifiedAt = DateTime.Now;
             if (ModelState.IsValid)
             {
-                _dbContext.Students.Update(student);
-                await _dbContext.SaveChangesAsync();
-                return RedirectToAction("ViewAllStudents");
+                var isUpdated = await _studentService.UpdateStudentAsync(student);
+                if (isUpdated)
+                {
+                    return RedirectToAction("ViewAllStudents");
+                }
             }
             return View(student);
         }
         public async Task<IActionResult> ConfirmDelete (int id)
         {
-            var student = await _dbContext.Students.FindAsync(id);
+            var student = await _studentService.GetStudentByIdAsync(id);
             if (student == null)
             {
                 return NotFound();
@@ -74,13 +77,20 @@ namespace SMS.Web.Controllers
         }
         public async Task<IActionResult> Delete (int id)
         {
-            var student = await _dbContext.Students.FindAsync(id);
-            if (student == null)
+            try
             {
-                return NotFound();
+                var isDeleted = await _studentService.DeleteStudentAsync(id);
+                if (!isDeleted)
+                {
+                    return NotFound();
+                }
+
             }
-            _dbContext.Students.Remove(student);
-            await _dbContext.SaveChangesAsync();
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error deleting student: {ex.Message}");
+                return StatusCode(500, "Internal server error");
+            }
             return RedirectToAction("ViewAllStudents");
         }
     }

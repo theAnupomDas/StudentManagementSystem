@@ -7,7 +7,7 @@ using System.Text;
 
 namespace SMS.Models.Entities
 {
-    public class StudentEntity : EntityBase, ICreationAudit, IModicationAudit, ISoftDelete
+    public class StudentEntity : EntityBase, ICreationAudit, IModificationAudit, ISoftDelete
     {
         public StudentEntity()
         {
@@ -29,8 +29,8 @@ namespace SMS.Models.Entities
         public string ContactNumber { get; set; }
 
         //creation audit properties
-        public string CreatedBy { get; set; }
-        public DateTime CreatedAt { get; set; }
+        public string CreatedBy { get; private set; }
+        public DateTime CreatedAt { get; private set; }
 
         //modification audit properties
         public string? ModifiedBy { get; set; }

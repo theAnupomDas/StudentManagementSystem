@@ -6,7 +6,7 @@ namespace SMS.Models.AuditTrail
 {
     public interface ICreationAudit
     {
-        string CreatedBy { get; set; }
-        DateTime CreatedAt { get; set; }
+        string CreatedBy { get;  }
+        DateTime CreatedAt { get; }
     }
 }
