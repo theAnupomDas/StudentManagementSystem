@@ -31,7 +31,7 @@ namespace SMS.Web.Controllers
             return View();
         }
         [HttpPost]
-        public async Task<IActionResult> Create(StudentEntity student)
+        public async Task<IActionResult> Create(Student student)
         {
            
             if(ModelState.IsValid)
@@ -54,7 +54,7 @@ namespace SMS.Web.Controllers
             return View(student);
         }
         [HttpPost]
-        public async Task<IActionResult> Update(StudentEntity student)
+        public async Task<IActionResult> Update(Student student)
         {
             if (ModelState.IsValid)
             {

@@ -7,10 +7,10 @@ namespace SMS.Service.Contracts
 {
     public interface IStudentService
     {
-        Task<List<StudentEntity>> GetAllStudentsAsync();
-        Task<StudentEntity> GetStudentByIdAsync(int id);
-        Task<bool> CreateStudentAsync(StudentEntity student);
-        Task<bool> UpdateStudentAsync(StudentEntity student);
+        Task<List<Student>> GetAllStudentsAsync();
+        Task<Student> GetStudentByIdAsync(int id);
+        Task<bool> CreateStudentAsync(Student student);
+        Task<bool> UpdateStudentAsync(Student student);
         Task<bool> DeleteStudentAsync(int id);
     }
 }

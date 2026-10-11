@@ -1,0 +1,22 @@
+﻿@model List<SMS.Models.Entities.Department>
+@{
+}
+<h1>Departments</h1>
+
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var department in Model)
+        {
+            <tr>
+                <td>@department.Id</td>
+                <td>@department.Name</td>
+            </tr>
+        }
+    </tbody>    
+</table>
