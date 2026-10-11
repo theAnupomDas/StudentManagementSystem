@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using SMS.DataAccess;
 using SMS.Models.Entities;
@@ -10,10 +11,12 @@ namespace SMS.Web.Controllers
     public class StudentController : Controller
     {
         private readonly IStudentService _studentService;
+        private readonly IDepartmentService _departmentService;
 
-        public StudentController(IStudentService studentService)
+        public StudentController(IStudentService studentService, IDepartmentService departmentService)
         {
             _studentService = studentService;
+            _departmentService = departmentService;
         }
 
         public IActionResult Index()
@@ -23,18 +26,42 @@ namespace SMS.Web.Controllers
 
         public async Task<IActionResult> ViewAllStudents()
         {
-            var students =await _studentService.GetAllStudentsAsync();
+            var students = await _studentService.GetAllStudentsAsync();
             return View(students);
         }
         public async Task<IActionResult> Create()
         {
+            var departments = await _departmentService.GetAllDepartmentsAsync();
+            ViewBag.Departments = new SelectList(
+        departments,
+        "Id",
+        "Name"
+        );
             return View();
         }
         [HttpPost]
-        public async Task<IActionResult> Create(StudentEntity student)
+        public async Task<IActionResult> Create(Student student)
         {
-           
-            if(ModelState.IsValid)
+            var department = await _departmentService.GetDepartmentAsync(student.DepartmentId);
+            student.Department = department;
+            ModelState.Remove(nameof(student.Department));
+            //if (!ModelState.IsValid)
+            //{
+            //    foreach (var item in ModelState)
+            //    {
+            //        var key = item.Key;
+            //        var errors = item.Value.Errors;
+
+            //        foreach (var error in errors)
+            //        {
+            //            Console.WriteLine(
+            //                $"Property: {key}, Error: {error.ErrorMessage}"
+            //            );
+            //        }
+            //    }
+            //}
+
+            if (ModelState.IsValid)
             {
                 var isCreated = await _studentService.CreateStudentAsync(student);
                 if (isCreated)
@@ -54,7 +81,7 @@ namespace SMS.Web.Controllers
             return View(student);
         }
         [HttpPost]
-        public async Task<IActionResult> Update(StudentEntity student)
+        public async Task<IActionResult> Update(Student student)
         {
             if (ModelState.IsValid)
             {
@@ -66,7 +93,7 @@ namespace SMS.Web.Controllers
             }
             return View(student);
         }
-        public async Task<IActionResult> ConfirmDelete (int id)
+        public async Task<IActionResult> ConfirmDelete(int id)
         {
             var student = await _studentService.GetStudentByIdAsync(id);
             if (student == null)
@@ -75,7 +102,7 @@ namespace SMS.Web.Controllers
             }
             return View(student);
         }
-        public async Task<IActionResult> Delete (int id)
+        public async Task<IActionResult> Delete(int id)
         {
             try
             {

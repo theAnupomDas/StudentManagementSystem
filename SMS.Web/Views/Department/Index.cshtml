@@ -1,0 +1,25 @@
+﻿@model List<SMS.Models.Entities.Department>
+@{
+}
+<h1>Departments</h1>
+
+<a asp-controller="Department" asp-action="Create">create department</a>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Details</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var department in Model)
+        {
+            <tr>
+                <td>@department.Name</td>
+                <td>@department.Details</td>
+                <td> <a asp-action="Update" asp-route-id="@department.Id">Update</a></td>
+            </tr>
+        }
+    </tbody>
+</table>
