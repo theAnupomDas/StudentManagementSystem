@@ -8,6 +8,7 @@
 <table class="table">
     <thead>
         <tr>
+            <th>ID</th>
             <th>Name</th>
             <th>Details</th>
         </tr>
@@ -16,10 +17,11 @@
         @foreach (var department in Model)
         {
             <tr>
+                <td>@department.Id</td>
                 <td>@department.Name</td>
                 <td>@department.Details</td>
                 <td> <a asp-action="Update" asp-route-id="@department.Id">Update</a></td>
             </tr>
         }
-    </tbody>
+    </tbody>    
 </table>

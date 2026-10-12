@@ -42,9 +42,9 @@ namespace SMS.Web.Controllers
             if (department == null)
             {
                 return NotFound();
-            }
+    }
             return View(department);
-        }
+}
         [HttpPost]
         public async Task<IActionResult> Update(Department department)
         {
