@@ -3,13 +3,14 @@ using SMS.Models.Base;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Reflection.Metadata.Ecma335;
 using System.Text;
 
 namespace SMS.Models.Entities
 {
-    public class StudentEntity : EntityBase, ICreationAudit, IModicationAudit, ISoftDelete
+    public class Student : EntityBase, ICreationAudit, IModificationAudit, ISoftDelete
     {
-        public StudentEntity()
+        public Student()
         {
             CreatedAt = DateTime.Now;
             CreatedBy = string.Empty;
@@ -29,8 +30,8 @@ namespace SMS.Models.Entities
         public string ContactNumber { get; set; }
 
         //creation audit properties
-        public string CreatedBy { get; set; }
-        public DateTime CreatedAt { get; set; }
+        public string CreatedBy { get; private set; }
+        public DateTime CreatedAt { get; private set; }
 
         //modification audit properties
         public string? ModifiedBy { get; set; }
@@ -39,8 +40,9 @@ namespace SMS.Models.Entities
         public bool IsDeleted { get; set; }
         public string? DeletedBy { get; set; }
         public DateTime? DeletedAt { get; set; }
+        public int DepartmentId { get; set; }
+        public Department Department { get; set; }
 
-    
 
     }
 }

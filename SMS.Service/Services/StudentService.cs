@@ -16,7 +16,7 @@ namespace SMS.Service.Services
         {
             _dbContext = dbContext;
         }
-        public async Task<bool> CreateStudentAsync(StudentEntity student)
+        public async Task<bool> CreateStudentAsync(Student student)
         {
             try
             {
@@ -53,19 +53,19 @@ namespace SMS.Service.Services
             }
         }
 
-        public async Task<List<StudentEntity>> GetAllStudentsAsync()
+        public async Task<List<Student>> GetAllStudentsAsync()
         {
             var students = await _dbContext.Students.ToListAsync();
             return students; 
         }
 
-        public async Task<StudentEntity> GetStudentByIdAsync(int id)
+        public async Task<Student> GetStudentByIdAsync(int id)
         {
-            var student = await _dbContext.FindAsync<StudentEntity>(id);
+            var student = await _dbContext.FindAsync<Student>(id);
             return student;
         }
 
-        public async Task<bool> UpdateStudentAsync(StudentEntity student)
+        public async Task<bool> UpdateStudentAsync(Student student)
         {
             try
             {

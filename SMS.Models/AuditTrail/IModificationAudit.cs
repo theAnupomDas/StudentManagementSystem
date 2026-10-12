@@ -4,7 +4,7 @@ using System.Text;
 
 namespace SMS.Models.AuditTrail
 {
-    public interface IModicationAudit
+    public interface IModificationAudit
     {
         string? ModifiedBy { get; set; }
         DateTime? ModifiedAt { get; set; } 
